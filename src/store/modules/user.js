@@ -1,5 +1,7 @@
 import md5 from 'md5'
 import { login } from '@/api/system'
+import { setItem, getItem } from '@/utils/storage'
+import { ITT_TOKEN } from '@/constant'
 
 /**
  * 用户模块
@@ -7,9 +9,16 @@ import { login } from '@/api/system'
 export default {
   namespaced: true,
   state: () => {
-    return {}
+    return {
+      token: getItem(ITT_TOKEN) || ''
+    }
   },
-  mutations: {},
+  mutations: {
+    setToken(state, token) {
+      state.token = token
+      setItem(ITT_TOKEN, token)
+    }
+  },
   actions: {
     /**
      * 登录请求动作
@@ -20,6 +29,7 @@ export default {
       return new Promise((resolve, reject) => {
         login({ username, password: md5(password) })
           .then((data) => {
+            context.commit('setToken', data.data.data.token)
             resolve(data)
           })
           .catch((err) => {

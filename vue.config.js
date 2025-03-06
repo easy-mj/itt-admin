@@ -30,6 +30,7 @@ module.exports = defineConfig({
       .end() // 结束
   },
   devServer: {
+    port: 8000,
     // 配置反向代理
     proxy: {
       // 当地址中有 /api 的时候就会触发代理请求机制
