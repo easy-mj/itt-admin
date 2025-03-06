@@ -29,7 +29,7 @@ export default {
       return new Promise((resolve, reject) => {
         login({ username, password: md5(password) })
           .then((data) => {
-            context.commit('setToken', data.data.data.token)
+            context.commit('setToken', data.token)
             resolve(data)
           })
           .catch((err) => {
