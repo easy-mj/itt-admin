@@ -21,5 +21,15 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'space-before-function-paren': 'off',
     'vue/multi-word-component-names': 'off'
+  },
+  /**
+   * ESLint 配置文件中添加对 Vue 编译器宏的全局变量声明，让 ESLint 知道这些宏是合法的，
+   * 'readonly' 表示这些全局变量是只读的，ESLint 不会对其重新赋值的情况进行检查。
+   */
+  globals: {
+    defineProps: 'readonly',
+    defineEmits: 'readonly',
+    defineExpose: 'readonly',
+    withDefaults: 'readonly'
   }
 }

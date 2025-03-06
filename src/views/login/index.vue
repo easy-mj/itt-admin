@@ -18,7 +18,7 @@
       <!-- 密码 -->
       <el-form-item>
         <span class="svg-container">
-          <el-icon><avatar /></el-icon>
+          <svg-icon icon="https://res.lgdsunday.club/user.svg"></svg-icon>
         </span>
         <el-input
           v-model="password"
@@ -38,6 +38,8 @@
 <script setup>
 import { Avatar } from '@element-plus/icons-vue'
 import { ref } from 'vue'
+import SvgIcon from '@/components/SvgIcon'
+
 const username = ref('')
 const password = ref('')
 </script>
@@ -62,14 +64,14 @@ $cursor: #fff;
     margin: 0 auto;
     overflow: hidden;
 
-    ::v-deep .el-form-item {
+    :deep(.el-form-item) {
       border: 1px solid rgba(255, 255, 255, 0.1);
       background-color: rgba(0, 0, 0, 0.1);
       border-radius: 5px;
       color: #454545;
     }
 
-    ::v-deep .el-input {
+    :deep(.el-input) {
       height: 47px;
       width: 85%;
 
