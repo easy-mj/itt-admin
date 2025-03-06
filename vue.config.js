@@ -28,5 +28,16 @@ module.exports = defineConfig({
         symbolId: 'icon-[name]'
       })
       .end() // 结束
+  },
+  devServer: {
+    // 配置反向代理
+    proxy: {
+      // 当地址中有 /api 的时候就会触发代理请求机制
+      '/api': {
+        // 要代理的服务器地址，这里不用写 api
+        target: 'http://localhost:3004',
+        changeOrigin: true // 是否跨域
+      }
+    }
   }
 })
