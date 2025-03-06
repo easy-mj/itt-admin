@@ -1,32 +1,36 @@
 <template>
   <div class="login-container">
-    <el-form class="login-form">
+    <el-form class="login-form" :model="loginForm" :rules="loginRules">
       <div class="title-container">
         <h3 class="title">用户登录</h3>
       </div>
       <!-- 用户名 -->
-      <el-form-item>
+      <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon="user"></svg-icon>
         </span>
         <el-input
-          v-model="username"
+          v-model="loginForm.username"
           placeholder="用户名"
           name="username"
         ></el-input>
       </el-form-item>
       <!-- 密码 -->
-      <el-form-item>
+      <el-form-item prop="password">
         <span class="svg-container">
           <svg-icon icon="password"></svg-icon>
         </span>
         <el-input
-          v-model="password"
+          v-model="loginForm.password"
           placeholder="密码"
           name="password"
+          :type="passwordType"
         ></el-input>
         <span class="show-password">
-          <svg-icon icon="eye"></svg-icon>
+          <svg-icon
+            :icon="passwordType === 'password' ? 'eye' : 'eye-open'"
+            @click="onChangePasswordType"
+          ></svg-icon>
         </span>
       </el-form-item>
       <!-- 登录按钮 -->
@@ -37,9 +41,27 @@
 
 <script setup>
 import { ref } from 'vue'
+import { validatePassword } from './rules'
 
-const username = ref('')
-const password = ref('')
+// 登录数据源
+const loginForm = ref({
+  username: 'super-admin',
+  password: '123456'
+})
+// 验证规则
+const loginRules = ref({
+  username: [{ required: true, trigger: 'blur', message: '用户名为必填项' }],
+  password: [{ required: true, trigger: 'blur', validator: validatePassword() }]
+})
+// 处理密码框文本显示
+const passwordType = ref('password')
+const onChangePasswordType = () => {
+  if (passwordType.value === 'password') {
+    passwordType.value = 'text'
+  } else {
+    passwordType.value = 'password'
+  }
+}
 </script>
 
 <style lang="scss" scoped>
