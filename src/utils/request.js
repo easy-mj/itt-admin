@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 import store from '@/store'
+import { isCheckTimeout } from '@/utils/auth'
 
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // 从环境变量读取
@@ -13,6 +14,12 @@ service.interceptors.request.use(
     // 统一注入 token 的实现
     const token = store.getters.token
     if (token) {
+      // 检测 token 是否超时
+      if (isCheckTimeout()) {
+        // 退出操作
+        store.dispatch('user/logout')
+        return Promise.reject(new Error('token 失效'))
+      }
       config.headers.Authorization = `Bearer ${token}`
     }
     return config

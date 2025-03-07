@@ -3,6 +3,7 @@ import { login, getUserInfo } from '@/api/system'
 import { setItem, getItem, removeAllItem } from '@/utils/storage'
 import { ITT_TOKEN } from '@/constant'
 import router from '@/router'
+import { setTimeStamp } from '@/utils/auth'
 
 /**
  * 用户模块
@@ -37,6 +38,8 @@ export default {
             context.commit('setToken', data.token)
             // 跳转页面
             router.push('/')
+            // 保存登录时间
+            setTimeStamp()
             resolve(data)
           })
           .catch((err) => {
