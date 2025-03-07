@@ -1,6 +1,6 @@
 import md5 from 'md5'
 import { login, getUserInfo } from '@/api/system'
-import { setItem, getItem } from '@/utils/storage'
+import { setItem, getItem, removeAllItem } from '@/utils/storage'
 import { ITT_TOKEN } from '@/constant'
 import router from '@/router'
 
@@ -55,6 +55,15 @@ export default {
       } catch (error) {
         return error
       }
+    },
+    /**
+     * 退出登录动作
+     */
+    logout(context) {
+      context.commit('setToken', '')
+      context.commit('setUserInfo', {})
+      removeAllItem()
+      router.push('/login')
     }
   }
 }

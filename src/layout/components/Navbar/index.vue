@@ -18,7 +18,9 @@
             <a target="_blank" href="https://github.com/easy-mj/itt-admin">
               <el-dropdown-item>Github</el-dropdown-item>
             </a>
-            <el-dropdown-item divided>退出登录</el-dropdown-item>
+            <el-dropdown-item divided @click="handleLogout"
+              >退出登录</el-dropdown-item
+            >
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -26,7 +28,15 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { useStore } from 'vuex'
+
+// 退出登录
+const store = useStore()
+const handleLogout = () => {
+  store.dispatch('user/logout')
+}
+</script>
 
 <style lang="scss" scoped>
 .navbar {
