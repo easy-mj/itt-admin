@@ -1,5 +1,5 @@
 import md5 from 'md5'
-import { login } from '@/api/system'
+import { login, getUserInfo } from '@/api/system'
 import { setItem, getItem } from '@/utils/storage'
 import { ITT_TOKEN } from '@/constant'
 import router from '@/router'
@@ -11,13 +11,17 @@ export default {
   namespaced: true,
   state: () => {
     return {
-      token: getItem(ITT_TOKEN) || ''
+      token: getItem(ITT_TOKEN) || '',
+      userInfo: {}
     }
   },
   mutations: {
     setToken(state, token) {
       state.token = token
       setItem(ITT_TOKEN, token)
+    },
+    setUserInfo(state, userInfo) {
+      state.userInfo = userInfo
     }
   },
   actions: {
@@ -39,6 +43,18 @@ export default {
             reject(err)
           })
       })
+    },
+    /**
+     * 获取用户信息动作
+     */
+    async getUserInfo(context) {
+      try {
+        const result = await getUserInfo()
+        context.commit('setUserInfo', result)
+        return result
+      } catch (error) {
+        return error
+      }
     }
   }
 }
