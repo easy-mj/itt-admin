@@ -73,7 +73,7 @@ export const generateMenus = (routes, basePath = '') => {
 
     // 存在 children，存在 meta，继续迭代 children
     if (!isNull(item.children)) {
-      route.children.push(...generateMenus(item.children), route.path)
+      route.children.push(...generateMenus(item.children, route.path))
     }
   })
   return result
