@@ -1,3 +1,4 @@
+import variables from '@/style/variables.module.scss'
 /**
  * 快捷访问
  */
@@ -6,6 +7,7 @@ const getters = {
   userInfo: (state) => state.user.userInfo,
   hasUserInfo: (state) => {
     return JSON.stringify(state.user.userInfo) !== '{}'
-  }
+  },
+  cssVar: (state) => variables
 }
 export default getters
