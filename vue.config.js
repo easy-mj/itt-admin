@@ -9,6 +9,14 @@ function resolve(dir) {
  */
 module.exports = defineConfig({
   transpileDependencies: true,
+  configureWebpack: {
+    resolve: {
+      fallback: {
+        // 对 Webpack 的配置进行了扩展，添加了 resolve.fallback 选项，将 path 模块的解析替换为 path-browserify。
+        path: require.resolve('path-browserify')
+      }
+    }
+  },
   chainWebpack(config) {
     // 设置 svg-sprite-loader
     config.module
