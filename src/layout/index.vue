@@ -1,5 +1,8 @@
 <template>
-  <div class="app-wrapper">
+  <div
+    class="app-wrapper"
+    :class="sidebarOpened ? 'openSidebar' : 'hideSidebar'"
+  >
     <!-- 左侧 Menu -->
     <side-bar
       id="guide-sidebar"
@@ -18,11 +21,18 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
+import { useStore } from 'vuex'
 import variables from '@/style/variables.module.scss'
 import Navbar from './components/Navbar'
 import SideBar from './components/Sidebar'
 import AppMain from './components/AppMain'
-console.log(variables)
+
+// 处理菜单折叠
+const store = useStore()
+const sidebarOpened = computed(() => {
+  return store.getters.sidebarOpened
+})
 </script>
 
 <style lang="scss" scoped>
@@ -42,5 +52,12 @@ console.log(variables)
   right: 0;
   z-index: 9;
   width: calc(100% - #{$sideBarWidth});
+  transition: width 0.28s;
+}
+
+.hideSidebar {
+  .fixed-header {
+    width: calc(100% - #{$hiddenSidebarWidth});
+  }
 }
 </style>

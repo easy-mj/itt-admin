@@ -1,6 +1,7 @@
 <template>
   <el-menu
     :router="true"
+    :collapse="!sidebarOpened"
     :unique-opened="true"
     :default-active="activeMenu"
     :background-color="cssVar.menuBg"
@@ -40,6 +41,11 @@ const route = useRoute()
 const activeMenu = computed(() => {
   const { path } = route
   return path
+})
+
+// 处理菜单折叠
+const sidebarOpened = computed(() => {
+  return store.getters.sidebarOpened
 })
 </script>
 
