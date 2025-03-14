@@ -16,7 +16,10 @@ const messages = {
   }
 }
 
-const locale = store.getters.language
+// 获取当前 language
+function getLanguage() {
+  return store && store.getters.language
+}
 
 const i18n = createI18n({
   // 使用 Composition API 时，需要使用 legacy: false
@@ -25,7 +28,7 @@ const i18n = createI18n({
   globalInjection: true,
   // 全局使用 $t('message.hello') 时，需要设置 fallbackLocale
   fallbackLocale: 'en',
-  locale,
+  locale: getLanguage(),
   messages
 })
 
