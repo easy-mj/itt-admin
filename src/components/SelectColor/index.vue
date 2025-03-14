@@ -27,6 +27,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useStore } from 'vuex'
 
 defineProps({
   modelValue: {
@@ -35,8 +36,10 @@ defineProps({
   }
 })
 
+const store = useStore()
+
 // 主题色值
-const themeColor = ref('#409EFF')
+const themeColor = ref(store.getters.themeColor)
 // 预定义色值
 const predefineColors = ref([
   '#ff4500',
@@ -63,8 +66,10 @@ function closeDialog() {
 const handleCloseClick = () => {
   closeDialog()
 }
+
+// 点击确定
 const handleConfirmClick = () => {
-  console.log('确认')
+  store.commit('theme/setThemeColor', themeColor.value)
   closeDialog()
 }
 </script>

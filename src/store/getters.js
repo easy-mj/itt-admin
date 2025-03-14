@@ -1,4 +1,5 @@
 import variables from '@/style/variables.module.scss'
+
 /**
  * 快捷访问
  */
@@ -10,6 +11,7 @@ const getters = {
   },
   cssVar: (state) => variables,
   sidebarOpened: (state) => state.app.sidebarOpened,
-  language: (state) => state.app.language
+  language: (state) => state.app.language,
+  themeColor: (state) => state.theme.themeColor
 }
 export default getters
