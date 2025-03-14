@@ -7,7 +7,8 @@
       :rules="loginRules"
     >
       <div class="title-container">
-        <h3 class="title">用户登录</h3>
+        <h3 class="title">{{ $t('msg.login.title') }}</h3>
+        <lang-select class="lang-select"></lang-select>
       </div>
       <!-- 用户名 -->
       <el-form-item prop="username">
@@ -44,8 +45,9 @@
         class="login-btn"
         :loading="loading"
         @click="handleLogin"
-        >登录</el-button
+        >{{ $t('msg.login.loginBtn') }}</el-button
       >
+      <div class="tips" v-html="$t('msg.login.desc')"></div>
     </el-form>
   </div>
 </template>
@@ -53,16 +55,25 @@
 <script setup>
 import { ref } from 'vue'
 import { useStore } from 'vuex'
+import { useI18n } from 'vue-i18n'
+import LangSelect from '@/components/LangSelect'
 import { validatePassword } from './rules'
 
 // 登录数据源
+const i18n = useI18n()
 const loginForm = ref({
   username: 'super-admin',
   password: '123456'
 })
 // 验证规则
 const loginRules = ref({
-  username: [{ required: true, trigger: 'blur', message: '用户名为必填项' }],
+  username: [
+    {
+      required: true,
+      trigger: 'blur',
+      message: i18n.t('msg.login.usernameRule')
+    }
+  ],
   password: [{ required: true, trigger: 'blur', validator: validatePassword() }]
 })
 // 处理密码框文本显示
@@ -165,6 +176,17 @@ $cursor: #fff;
       text-align: center;
       font-weight: bold;
     }
+
+    .lang-select {
+      position: absolute;
+      right: 2px;
+      top: 6px;
+      padding: 4px;
+      border-radius: 4px;
+      font-size: 16px;
+      background-color: #fff;
+      cursor: pointer;
+    }
   }
 
   .show-password {
@@ -181,5 +203,11 @@ $cursor: #fff;
 .login-btn {
   width: 100%;
   margin-bottom: 30px;
+}
+
+.tips {
+  font-size: 16px;
+  color: #fff;
+  line-height: 24px;
 }
 </style>

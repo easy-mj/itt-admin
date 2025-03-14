@@ -1,5 +1,5 @@
 <template>
-  <div class="profile">个人中心{{ $t('message.hello') }}</div>
+  <div class="profile">个人中心</div>
   <el-pagination
     v-model:current-page="currentPage"
     :page-size="100"

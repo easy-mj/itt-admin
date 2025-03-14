@@ -1,19 +1,22 @@
 import { createI18n } from 'vue-i18n'
+import store from '@/store'
+import zhLocale from './lang/zh'
+import enLocale from './lang/en'
 
 const messages = {
   en: {
-    message: {
-      hello: 'hello world'
+    msg: {
+      ...enLocale
     }
   },
   zh: {
-    message: {
-      hello: '你好，世界'
+    msg: {
+      ...zhLocale
     }
   }
 }
 
-const locale = 'en'
+const locale = store.getters.language
 
 const i18n = createI18n({
   // 使用 Composition API 时，需要使用 legacy: false
