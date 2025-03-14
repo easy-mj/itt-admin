@@ -28,6 +28,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useStore } from 'vuex'
+import { generateNewStyle, writeNewStyle } from '@/utils/theme'
 
 defineProps({
   modelValue: {
@@ -68,8 +69,10 @@ const handleCloseClick = () => {
 }
 
 // 点击确定
-const handleConfirmClick = () => {
+const handleConfirmClick = async () => {
   store.commit('theme/setThemeColor', themeColor.value)
+  const newStyle = await generateNewStyle(themeColor.value)
+  writeNewStyle(newStyle)
   closeDialog()
 }
 </script>
