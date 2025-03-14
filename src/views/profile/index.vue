@@ -3,7 +3,6 @@
   <el-pagination
     v-model:current-page="currentPage"
     :page-size="100"
-    :size="size"
     :disabled="disabled"
     :background="background"
     layout="total, prev, pager, next"

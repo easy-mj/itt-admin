@@ -96,9 +96,9 @@ const handleLogout = () => {
     }
   }
 
-  .right-menu-item {
+  :deep(.right-menu-item) {
     display: inline-block;
-    padding: 0 16px 0 0;
+    padding: 0 14px 0 0;
     font-size: 20px;
     color: #5a5e66;
     vertical-align: text-bottom;

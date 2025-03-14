@@ -20,16 +20,24 @@
         </el-dropdown-item>
       </el-dropdown-menu>
     </template>
-    <!-- 弹出层 -->
-    <div></div>
   </el-dropdown>
+  <!-- 弹出层 -->
+  <div>
+    <select-color v-model="showSetThemeDialog"></select-color>
+  </div>
 </template>
 
 <script setup>
+import { ref } from 'vue'
+import SelectColor from '@/components/SelectColor'
+
+// 弹出层
+const showSetThemeDialog = ref(false)
 const handleSetTheme = (command) => {
   if (command === 'color') {
     // 切换主题颜色
     console.log('切换主题颜色')
+    showSetThemeDialog.value = true
   }
 }
 </script>
