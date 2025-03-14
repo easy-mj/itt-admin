@@ -5,6 +5,8 @@
     <!-- 面包屑 -->
     <breadcrumb class="breadcrumb-container"></breadcrumb>
     <div class="right-menu">
+      <!-- 国际化 -->
+      <lang-select class="lang-select-container hover-effect"></lang-select>
       <!-- 头像 -->
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
@@ -36,6 +38,7 @@
 import { useStore } from 'vuex'
 import Hamburger from '@/components/Hamburger'
 import Breadcrumb from '@/components/Breadcrumb'
+import LangSelect from '@/components/LangSelect'
 
 // 退出登录
 const store = useStore()
@@ -86,6 +89,18 @@ const handleLogout = () => {
           --el-avatar-background-color: none;
         }
       }
+    }
+  }
+
+  .lang-select-container {
+    display: inline-block;
+    padding: 0 18px 0 0;
+    font-size: 24px;
+    color: #5a5e66;
+    vertical-align: text-bottom;
+
+    &.hover-effect {
+      cursor: pointer;
     }
   }
 }

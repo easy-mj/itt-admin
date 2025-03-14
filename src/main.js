@@ -4,6 +4,9 @@ import router from './router'
 import store from './store'
 import installElementPlus from './plugins/element'
 
+// 注册i18n
+import i18n from '@/i18n'
+
 // 初始化样式表
 import '@/style/index.scss'
 // 导入 SvgIcon
@@ -14,4 +17,4 @@ import '@/permission'
 const app = createApp(App)
 installElementPlus(app)
 installIcons(app)
-app.use(store).use(router).mount('#app')
+app.use(store).use(router).use(i18n).mount('#app')
