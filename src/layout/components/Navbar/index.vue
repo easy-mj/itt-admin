@@ -5,13 +5,15 @@
     <!-- 面包屑 -->
     <breadcrumb class="breadcrumb-container"></breadcrumb>
     <div class="right-menu">
+      <!-- 主题换肤 -->
+      <theme-select class="right-menu-item hover-effect"></theme-select>
       <!-- 国际化 -->
-      <lang-select class="lang-select-container hover-effect"></lang-select>
+      <lang-select class="right-menu-item hover-effect"></lang-select>
       <!-- 头像 -->
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <el-avatar
-            :size="40"
+            :size="30"
             :src="$store.getters.userInfo.avatar"
           ></el-avatar>
           <el-icon><Tools /></el-icon>
@@ -39,6 +41,7 @@ import { useStore } from 'vuex'
 import Hamburger from '@/components/Hamburger'
 import Breadcrumb from '@/components/Breadcrumb'
 import LangSelect from '@/components/LangSelect'
+import ThemeSelect from '@/components/ThemeSelect'
 
 // 退出登录
 const store = useStore()
@@ -52,7 +55,7 @@ const handleLogout = () => {
   position: relative;
   height: 50px;
   background-color: #fff;
-  box-shadow: 0 1px 4px rgab(0, 21, 41, 0.08);
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
   overflow: hidden;
 
   .hamburger-container {
@@ -76,6 +79,7 @@ const handleLogout = () => {
     display: flex;
     align-items: center;
     float: right;
+    padding-top: 8px;
     padding-right: 16px;
 
     :deep(.navbar-container) {
@@ -92,10 +96,10 @@ const handleLogout = () => {
     }
   }
 
-  .lang-select-container {
+  .right-menu-item {
     display: inline-block;
-    padding: 0 18px 0 0;
-    font-size: 24px;
+    padding: 0 16px 0 0;
+    font-size: 20px;
     color: #5a5e66;
     vertical-align: text-bottom;
 
