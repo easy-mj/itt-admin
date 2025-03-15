@@ -1,37 +1,59 @@
 <template>
-  <div class="profile">个人中心</div>
-  <el-pagination
-    v-model:current-page="currentPage"
-    :page-size="100"
-    :disabled="disabled"
-    :background="background"
-    layout="total, prev, pager, next"
-    :total="1000"
-    @size-change="handleSizeChange"
-    @current-change="handleCurrentChange"
-  />
-  <div class="mb-4">
-    <el-button>Default</el-button>
-    <el-button type="primary">Primary</el-button>
-    <el-button type="success">Success</el-button>
-    <el-button type="info">Info</el-button>
-    <el-button type="warning">Warning</el-button>
-    <el-button type="danger">Danger</el-button>
+  <div class="profile">
+    <el-row>
+      <el-col :span="6">
+        <project-card
+          class="project-card"
+          :features="featureData"
+        ></project-card>
+      </el-col>
+      <el-col :span="18">
+        <el-card>
+          <el-tabs v-model="activeTab">
+            <el-tab-pane :label="$t('msg.profile.feature')" name="feature">
+              <feature :features="featureData"></feature>
+            </el-tab-pane>
+            <el-tab-pane :label="$t('msg.profile.chapter')" name="chapter">
+              <chapter></chapter>
+            </el-tab-pane>
+            <el-tab-pane :label="$t('msg.profile.author')" name="author">
+              <author></author>
+            </el-tab-pane>
+          </el-tabs>
+        </el-card>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-const currentPage = ref(5)
-const background = ref(false)
-const disabled = ref(false)
+import { getFeature } from '@/api/user'
+import { watchSwitchLanguage } from '@/utils/i18n'
+import ProjectCard from './components/ProjectCard.vue'
+import Feature from './components/Feature.vue'
+import Chapter from './components/Chapter.vue'
+import Author from './components/Author.vue'
 
-const handleSizeChange = (val) => {
-  console.log(`${val} items per page`)
+// 当前激活的 tab
+const activeTab = ref('feature')
+
+// 获取用户特性
+const featureData = ref(null)
+const fetchFeature = async () => {
+  const res = await getFeature()
+  featureData.value = res
 }
-const handleCurrentChange = (val) => {
-  console.log(`current page: ${val}`)
-}
+fetchFeature()
+
+// 切换语言时重新获取数据
+watchSwitchLanguage(() => {
+  fetchFeature()
+})
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.project-card {
+  margin-right: 20px;
+}
+</style>

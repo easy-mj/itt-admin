@@ -35,6 +35,20 @@ export default {
   toast: {
     switchLangSuccess: 'Switch Language Success'
   },
+  profile: {
+    feature: 'Feature',
+    author: 'Author',
+    chapter: 'Chapter',
+    introduce: 'Introduction',
+    projectIntroduction: 'Project Introduction',
+    muted:
+      'Based on the new standards of Vue3, create a comprehensive background management solution.  ',
+    projectFunction: 'Project Function',
+    name: 'MJ',
+    job: 'Front-end Architect',
+    introduction:
+      'I have participated in the technical research and development of large platforms as well as middle and back-end systems. With years of experience in front-end architecture, I am highly experienced and familiar with the architecture and development of large-scale SPA (Single Page Application) projects and micro front-ends. I have been involved in the architectural design of several large middle and back-end applications. In particular, I have conducted in-depth research on micro front-end architecture and accumulated rich practical experience. Having 8 years of front-end development experience, I have dabbled in Vue, React, Node, mini-programs, and mainstream server-side languages.  '
+  },
   tagsView: {
     refresh: 'Refresh',
     closeRight: 'Close Rights',
