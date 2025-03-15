@@ -82,15 +82,13 @@ const handleLogout = () => {
     padding-top: 8px;
     padding-right: 16px;
 
-    :deep(.navbar-container) {
+    :deep(.avatar-container) {
       cursor: pointer;
 
       .avatar-wrapper {
-        position: relative;
-        margin-top: 5px;
         .el-avatar {
           margin-right: 12px;
-          --el-avatar-background-color: none;
+          --el-avatar-bg-color: none;
         }
       }
     }
