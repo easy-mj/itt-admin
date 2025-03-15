@@ -43,5 +43,9 @@ const logoHeight = 44
     white-space: nowrap; /* 文字不允许换行 */
     font-weight: bold;
   }
+
+  .el-avatar {
+    --el-avatar-bg-color: none;
+  }
 }
 </style>

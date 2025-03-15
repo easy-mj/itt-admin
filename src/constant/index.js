@@ -8,3 +8,9 @@ export const ITT_TOKEN_TIMEOUT_VALUE = 2 * 3600 * 1000
 
 // 国际化
 export const ITT_LANGUAGE = 'itt_language'
+
+// 主题色
+export const ITT_THEME_COLOR = 'itt_theme_color'
+
+// 默认主题色
+export const ITT_THEME_COLOR_DEFAULT = '#409EFF'
