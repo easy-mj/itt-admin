@@ -15,6 +15,7 @@ generateNewStyle(store.getters.themeColor).then((newStyle) => {
 
 // 切换语言时重新获取用户信息
 watchSwitchLanguage(() => {
+  console.log(store.getters)
   if (store.getters.token) {
     store.dispatch('user/getUserInfo')
   }

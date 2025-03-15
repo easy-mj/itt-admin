@@ -65,7 +65,7 @@ defineProps({
 })
 
 const store = useStore()
-const userInfo = computed(() => store.state.user.userInfo)
+const userInfo = computed(() => store.getters.userInfo)
 </script>
 
 <style lang="scss" scoped>

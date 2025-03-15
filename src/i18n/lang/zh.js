@@ -42,7 +42,11 @@ export default {
     introduce: '简介',
     projectIntroduction: '项目介绍',
     muted: '基于Vue3新标准，打造后台综合解决方案',
-    projectFunction: '项目功能'
+    projectFunction: '项目功能',
+    name: 'MJ',
+    job: '前端架构师',
+    introduction:
+      '参与大平台和中后台技术研发。拥有多年的前端架构经验，经验丰富且熟悉大型SPA项目和微前端架构与开发，曾参与过多个中后台大型应用的架构设计，尤其对微前端架构有深入研究及丰富的实战经验，8年前端开发经验，对 Vue、react、node、小程序、主流服务端语言均有涉猎'
   },
   tagsView: {
     refresh: '刷新',
