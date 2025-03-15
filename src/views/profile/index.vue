@@ -29,6 +29,7 @@
 <script setup>
 import { ref } from 'vue'
 import { getFeature } from '@/api/user'
+import { watchSwitchLanguage } from '@/utils/i18n'
 import ProjectCard from './components/ProjectCard.vue'
 import Feature from './components/Feature.vue'
 import Chapter from './components/Chapter.vue'
@@ -44,6 +45,11 @@ const fetchFeature = async () => {
   featureData.value = res
 }
 fetchFeature()
+
+// 切换语言时重新获取数据
+watchSwitchLanguage(() => {
+  fetchFeature()
+})
 </script>
 
 <style lang="scss" scoped>
