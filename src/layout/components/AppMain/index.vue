@@ -14,6 +14,6 @@
   height: calc(100vh - 50px);
   padding: 61px 20px 20px 20px;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow-y: auto;
 }
 </style>

@@ -38,7 +38,12 @@ export default {
   profile: {
     feature: 'Feature',
     author: 'Author',
-    chapter: 'Chapter'
+    chapter: 'Chapter',
+    introduce: 'Introduction',
+    projectIntroduction: 'Project Introduction',
+    muted:
+      'Based on the new standards of Vue3, create a comprehensive background management solution.  ',
+    projectFunction: 'Project Function'
   },
   tagsView: {
     refresh: 'Refresh',

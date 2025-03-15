@@ -38,7 +38,11 @@ export default {
   profile: {
     feature: '功能',
     author: '作者',
-    chapter: '章节'
+    chapter: '章节',
+    introduce: '简介',
+    projectIntroduction: '项目介绍',
+    muted: '基于Vue3新标准，打造后台综合解决方案',
+    projectFunction: '项目功能'
   },
   tagsView: {
     refresh: '刷新',
