@@ -7,7 +7,7 @@
     <side-bar
       id="guide-sidebar"
       class="sidebar-container"
-      :style="{ backgroundColor: variables.menuBg }"
+      :style="{ backgroundColor: cssVar.menuBg }"
     ></side-bar>
     <div class="main-container">
       <div class="fixed-header">
@@ -23,7 +23,6 @@
 <script setup>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
-import variables from '@/style/variables.module.scss'
 import Navbar from './components/Navbar'
 import SideBar from './components/Sidebar'
 import AppMain from './components/AppMain'
@@ -32,6 +31,11 @@ import AppMain from './components/AppMain'
 const store = useStore()
 const sidebarOpened = computed(() => {
   return store.getters.sidebarOpened
+})
+
+// 获取样式变量
+const cssVar = computed(() => {
+  return store.getters.cssVar
 })
 </script>
 

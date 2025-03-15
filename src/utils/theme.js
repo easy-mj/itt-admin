@@ -6,7 +6,7 @@ const color = require('css-color-function')
 /**
  * 根据主色生成色值表
  */
-const generateColors = (primary) => {
+export const generateColors = (primary) => {
   if (!primary) return
   const colors = {
     primary
