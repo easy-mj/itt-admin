@@ -35,6 +35,11 @@ export default {
   toast: {
     switchLangSuccess: 'Switch Language Success'
   },
+  profile: {
+    feature: 'Feature',
+    author: 'Author',
+    chapter: 'Chapter'
+  },
   tagsView: {
     refresh: 'Refresh',
     closeRight: 'Close Rights',

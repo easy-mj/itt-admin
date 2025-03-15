@@ -35,6 +35,11 @@ export default {
   toast: {
     switchLangSuccess: '切换语言成功'
   },
+  profile: {
+    feature: '功能',
+    author: '作者',
+    chapter: '章节'
+  },
   tagsView: {
     refresh: '刷新',
     closeRight: '关闭右侧',
