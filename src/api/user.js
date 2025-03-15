@@ -8,3 +8,12 @@ export const getFeature = () => {
     url: '/user/feature'
   })
 }
+
+/**
+ * 获取章节信息
+ */
+export const getChapter = () => {
+  return request({
+    url: '/user/chapter'
+  })
+}
