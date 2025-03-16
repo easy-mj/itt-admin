@@ -38,3 +38,12 @@ export const getUserManageAllList = () => {
     url: '/user-manage/all-list'
   })
 }
+
+/**
+ * 获取用户详情接口
+ */
+export const getUserDetail = (id) => {
+  return request({
+    url: `/user-manage/detail/${id}`
+  })
+}

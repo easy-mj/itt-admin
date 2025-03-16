@@ -64,9 +64,12 @@
           width="200"
         >
           <template #default="{ row }">
-            <el-button type="primary" size="small">{{
-              $t('msg.excel.show')
-            }}</el-button>
+            <el-button
+              type="primary"
+              size="small"
+              @click="handleShowClick(row)"
+              >{{ $t('msg.excel.show') }}</el-button
+            >
             <el-button type="info" size="small">{{
               $t('msg.excel.showRole')
             }}</el-button>
@@ -181,6 +184,11 @@ const handleRemoveClick = (row) => {
 const exportExcelVisible = ref(false)
 const handleExportExcelClick = () => {
   exportExcelVisible.value = true
+}
+
+// 查看处理
+const handleShowClick = (row) => {
+  router.push({ name: 'userInfo', params: { id: row._id } })
 }
 </script>
 

@@ -32,6 +32,7 @@ const privateRoutes = [
       {
         name: 'userInfo',
         path: '/user/info/:id',
+        props: true,
         meta: { title: 'userInfo' },
         component: () => import('@/views/user-info')
       },
