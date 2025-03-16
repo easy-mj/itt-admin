@@ -4,7 +4,13 @@
       <template #header>
         <div class="header-wrapper">
           <div>
-            <el-button :icon="Refresh" size="small" />
+            <el-button
+              :icon="Refresh"
+              size="small"
+              :loading-icon="Refresh"
+              :loading="tableLoading"
+              @click="handleRefreshClick"
+            />
           </div>
           <div>
             <el-button size="small" plain @click="handleImportExcelClick">
@@ -76,8 +82,8 @@
           class="pagination"
           size="small"
           :current-page="page"
-          :page-size="page"
-          :page-sizes="[5, 10, 20]"
+          :page-size="size"
+          :page-sizes="[2, 5, 10, 20]"
           :total="total"
           layout="total, sizes, prev, pager, next, jumper"
           @size-change="handleSizeChange"
@@ -89,7 +95,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onActivated } from 'vue'
 import { useRouter } from 'vue-router'
 import { getUserManageList } from '@/api/user-manage'
 import { Refresh } from '@element-plus/icons-vue'
@@ -99,27 +105,48 @@ const tableData = ref([])
 const total = ref(0)
 const page = ref(1)
 const size = ref(2)
+const tableLoading = ref(false)
 
 // 获取数据的方法
 const fetchListData = async () => {
-  const result = await getUserManageList({
-    page: page.value,
-    size: size.value
-  })
-  tableData.value = result.list
-  total.value = result.total
+  try {
+    tableLoading.value = true
+    const result = await getUserManageList({
+      page: page.value,
+      size: size.value
+    })
+    tableData.value = result.list
+    total.value = result.total
+  } catch (error) {
+  } finally {
+    tableLoading.value = false
+  }
 }
 fetchListData()
 
+// 刷新
+const handleRefreshClick = () => {
+  fetchListData()
+}
+
 // 分页处理
-const handleSizeChange = () => {}
-const handleCurrentChange = () => {}
+const handleSizeChange = (currentSize) => {
+  size.value = currentSize
+  fetchListData()
+}
+const handleCurrentChange = (currentPage) => {
+  page.value = currentPage
+  fetchListData()
+}
 
 // 跳转到 Excel 导入页面
 const router = useRouter()
 const handleImportExcelClick = () => {
   router.push({ name: 'import' })
 }
+
+// 处理导入用户后不重新加载的问题
+onActivated(fetchListData)
 </script>
 
 <style lang="scss" scoped>
