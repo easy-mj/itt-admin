@@ -42,12 +42,12 @@
         <el-table-column prop="mobile" :label="$t('msg.excel.role')">
           <template #default="{ row }">
             <div v-if="row.role && row.role.length > 0">
-              <el-tag v-for="item in row.role" :key="item.id" :size="mini">
+              <el-tag v-for="item in row.role" :key="item.id" size="small">
                 {{ item.title }}
               </el-tag>
             </div>
             <div v-else>
-              <el-tag size="mini">{{ $t('msg.excel.defaultRole') }}</el-tag>
+              <el-tag size="small">{{ $t('msg.excel.defaultRole') }}</el-tag>
             </div>
           </template>
         </el-table-column>
@@ -63,16 +63,19 @@
           fixed="right"
           width="200"
         >
-          <template #default>
+          <template #default="{ row }">
             <el-button type="primary" size="small">{{
               $t('msg.excel.show')
             }}</el-button>
             <el-button type="info" size="small">{{
               $t('msg.excel.showRole')
             }}</el-button>
-            <el-button type="danger" size="small">{{
-              $t('msg.excel.remove')
-            }}</el-button>
+            <el-button
+              type="danger"
+              size="small"
+              @click="handleRemoveClick(row)"
+              >{{ $t('msg.excel.remove') }}</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
@@ -97,8 +100,12 @@
 <script setup>
 import { ref, onActivated } from 'vue'
 import { useRouter } from 'vue-router'
-import { getUserManageList } from '@/api/user-manage'
+import { useI18n } from 'vue-i18n'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import { Refresh } from '@element-plus/icons-vue'
+import { deleteUserById, getUserManageList } from '@/api/user-manage'
+
+const i18n = useI18n()
 
 // 定义数据相关变量
 const tableData = ref([])
@@ -147,6 +154,25 @@ const handleImportExcelClick = () => {
 
 // 处理导入用户后不重新加载的问题
 onActivated(fetchListData)
+
+// 删除用户
+const handleRemoveClick = (row) => {
+  ElMessageBox.confirm(
+    `${i18n.t('msg.excel.dialogTitle1')}${row.username}${i18n.t(
+      'msg.excel.dialogTitle2'
+    )}`,
+    {
+      type: 'warning'
+    }
+  )
+    .then(async () => {
+      console.log(row)
+      await deleteUserById(row._id)
+      ElMessage.success(i18n.t('msg.excel.removeSuccess'))
+      fetchListData()
+    })
+    .catch(() => {})
+}
 </script>
 
 <style lang="scss" scoped>
