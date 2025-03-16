@@ -16,7 +16,7 @@
             <el-button size="small" plain @click="handleImportExcelClick">
               <el-icon><UploadFilled /></el-icon> 导入Excel
             </el-button>
-            <el-button size="small" plain>
+            <el-button size="small" plain @click="handleExportExcelClick">
               <el-icon><Files /></el-icon> 导出Excel
             </el-button>
           </div>
@@ -94,6 +94,8 @@
         ></el-pagination>
       </div>
     </el-card>
+    <!-- 导出Excel -->
+    <export-excel v-model="exportExcelVisible"></export-excel>
   </div>
 </template>
 
@@ -104,6 +106,7 @@ import { useI18n } from 'vue-i18n'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Refresh } from '@element-plus/icons-vue'
 import { deleteUserById, getUserManageList } from '@/api/user-manage'
+import ExportExcel from '@/components/Export2Excel'
 
 const i18n = useI18n()
 
@@ -172,6 +175,12 @@ const handleRemoveClick = (row) => {
       fetchListData()
     })
     .catch(() => {})
+}
+
+// 导出 Excel
+const exportExcelVisible = ref(false)
+const handleExportExcelClick = () => {
+  exportExcelVisible.value = true
 }
 </script>
 
