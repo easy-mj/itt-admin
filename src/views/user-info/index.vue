@@ -3,11 +3,16 @@
     <el-card>
       <!-- 打印 -->
       <div class="print-container">
-        <el-button type="primary" size="small">
+        <el-button
+          type="primary"
+          size="small"
+          :loading="printLoading"
+          v-print="printObj"
+        >
           {{ $t('msg.userInfo.print') }}
         </el-button>
       </div>
-      <div class="user-info-container">
+      <div id="userInfoBox" class="user-info-container">
         <!-- 标题 -->
         <h2 class="title">{{ $t('msg.userInfo.title') }}</h2>
         <!-- 头部 -->
@@ -101,6 +106,24 @@ fetchUserDetail()
 watchSwitchLanguage(() => {
   fetchUserDetail()
 })
+
+// 打印相关
+const printLoading = ref(false)
+// 创建打印对象
+const printObj = {
+  // 打印区域
+  id: 'userInfoBox',
+  // 打印标题
+  popTitle: 'vue3+element-plus2.x-admin',
+  // 打印前回调
+  beforeOpenCallback() {
+    printLoading.value = true
+  },
+  // 执行打印回调
+  openCallback() {
+    printLoading.value = false
+  }
+}
 </script>
 
 <style lang="scss" scoped>

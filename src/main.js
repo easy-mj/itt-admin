@@ -15,9 +15,12 @@ import installIcons from '@/icons'
 import '@/permission'
 // 导入全局属性
 import installFilter from '@/filter'
+// 指令
+import installDerective from '@/directives'
 
 const app = createApp(App)
 installElementPlus(app)
 installIcons(app)
 installFilter(app)
+installDerective(app)
 app.use(store).use(router).use(i18n).mount('#app')
