@@ -7,7 +7,7 @@
             <el-button :icon="Refresh" size="small" />
           </div>
           <div>
-            <el-button size="small" plain>
+            <el-button size="small" plain @click="handleImportExcelClick">
               <el-icon><UploadFilled /></el-icon> 导入Excel
             </el-button>
             <el-button size="small" plain>
@@ -90,6 +90,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { getUserManageList } from '@/api/user-manage'
 import { Refresh } from '@element-plus/icons-vue'
 
@@ -113,6 +114,12 @@ fetchListData()
 // 分页处理
 const handleSizeChange = () => {}
 const handleCurrentChange = () => {}
+
+// 跳转到 Excel 导入页面
+const router = useRouter()
+const handleImportExcelClick = () => {
+  router.push({ name: 'import' })
+}
 </script>
 
 <style lang="scss" scoped>
