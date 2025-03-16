@@ -13,8 +13,14 @@ import '@/style/index.scss'
 import installIcons from '@/icons'
 // 导入路由鉴权
 import '@/permission'
+// 导入全局属性
+import installFilter from '@/filter'
+// 指令
+import installDerective from '@/directives'
 
 const app = createApp(App)
 installElementPlus(app)
 installIcons(app)
+installFilter(app)
+installDerective(app)
 app.use(store).use(router).use(i18n).mount('#app')

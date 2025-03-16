@@ -114,7 +114,9 @@ export default {
   },
   uploadExcel: {
     upload: 'Click upload',
-    drop: 'Drag files here'
+    drop: 'Drag files here',
+    checkFile: 'There must be a file',
+    checkFileExt: 'The file must be in the format of.xlsx,.xls, or.csv'
   },
   excel: {
     importExcel: 'excel import',
@@ -180,5 +182,9 @@ export default {
     createSuccess: 'The article was created successfully',
     editorSuccess: 'Article modified successfully',
     sortSuccess: 'Article ranking modified successfully'
+  },
+  language: {
+    languageChange: 'Switch language',
+    chinese: 'Chinese'
   }
 }

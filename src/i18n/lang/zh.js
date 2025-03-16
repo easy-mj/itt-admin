@@ -113,7 +113,9 @@ export default {
   },
   uploadExcel: {
     upload: '点击上传',
-    drop: '将文件拖到此处'
+    drop: '将文件拖到此处',
+    checkFile: '必须要有一个文件',
+    checkFileExt: '文件必须是 .xlsx，.xls，.csv 格式'
   },
   excel: {
     importExcel: 'excel 导入',
@@ -179,5 +181,9 @@ export default {
     createSuccess: '文章创建成功',
     editorSuccess: '文章修改成功',
     sortSuccess: '文章排名修改成功'
+  },
+  language: {
+    languageChange: '切换语言',
+    chinese: '中文'
   }
 }

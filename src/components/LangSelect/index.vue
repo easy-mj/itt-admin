@@ -5,16 +5,18 @@
     @command="handleSetLanguage"
   >
     <div>
-      <el-tooltip content="切换语言" :effect="effect">
+      <el-tooltip :content="$t('msg.language.languageChange')" :effect="effect">
         <svg-icon icon="language"></svg-icon>
       </el-tooltip>
     </div>
     <template #dropdown>
       <el-dropdown-menu class="dropdown-menu">
-        <el-dropdown-item :disabled="isZh" command="zh">中文</el-dropdown-item>
-        <el-dropdown-item :disabled="isEn" command="en"
-          >English</el-dropdown-item
-        >
+        <el-dropdown-item :disabled="isZh" command="zh">
+          {{ $t('msg.language.chinese') }}
+        </el-dropdown-item>
+        <el-dropdown-item :disabled="isEn" command="en">
+          English
+        </el-dropdown-item>
       </el-dropdown-menu>
     </template>
   </el-dropdown>
