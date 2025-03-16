@@ -32,8 +32,10 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import XLSX from 'xlsx'
-import { getHeaderRow } from './helper'
+import { getHeaderRow, isExcel } from './helper'
+import { ElMessage } from 'element-plus'
 
 const props = defineProps({
   // 上传文件之前的回调
@@ -45,6 +47,8 @@ const props = defineProps({
     type: Function
   }
 })
+
+const i18n = useI18n()
 
 // 点击上传触发
 const uploadLoading = ref(false)
@@ -58,6 +62,33 @@ const handleChange = (e) => {
   const rawFile = files[0]
   if (!rawFile) return
   uploadFile(rawFile)
+}
+
+// 拖拽上传
+const handleDrop = (e) => {
+  // 上传中
+  if (uploadLoading.value) return
+  const files = e.dataTransfer.files
+  if (files.length !== 1) {
+    ElMessage.error(i18n.t('msg.uploadExcel.checkFile'))
+    return
+  }
+  const rawFile = files[0]
+  // 校验文件是否是Excel文件
+  if (!isExcel(rawFile)) {
+    ElMessage.error(i18n.t('msg.uploadExcel.checkFileExt'))
+    return
+  }
+  // 上传文件
+  uploadFile(rawFile)
+}
+
+/**
+ * 拖拽悬停时触发
+ */
+const handleDragover = (e) => {
+  // 在新位置生成源项的副本 https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/dropEffect
+  e.dataTransfer.dropEffect = 'copy'
 }
 
 /**
@@ -117,9 +148,6 @@ const readerData = (file) => {
     reader.readAsArrayBuffer(file)
   })
 }
-
-const handleDrop = () => {}
-const handleDragover = () => {}
 </script>
 
 <style lang="scss" scoped>

@@ -19,3 +19,10 @@ export const getHeaderRow = (sheet) => {
   }
   return headers // 经过上方一波操作遍历，得到最终的第一行头数据
 }
+
+/**
+ * 校验是否为 Excel 文件
+ */
+export const isExcel = (file) => {
+  return /\.(xlsx|xls|csv)$/.test(file.name)
+}
