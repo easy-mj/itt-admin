@@ -23,7 +23,13 @@
         </div>
       </template>
       <!-- 表格 -->
-      <el-table :data="tableData" size="small" style="width: 100%">
+      <el-table
+        :data="tableData"
+        size="small"
+        style="width: 100%"
+        v-loading="tableLoading"
+        element-loading-text="Loading..."
+      >
         <!-- 索引 -->
         <el-table-column type="index" label="#"></el-table-column>
         <!-- 姓名 -->
