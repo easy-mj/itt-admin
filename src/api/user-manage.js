@@ -47,3 +47,25 @@ export const getUserDetail = (id) => {
     url: `/user-manage/detail/${id}`
   })
 }
+
+/**
+ * 获取指定用户角色
+ */
+export const getUserRoles = (id) => {
+  return request({
+    url: `/user-manage/role/${id}`
+  })
+}
+
+/**
+ * 为用户分配角色
+ */
+export const updateRoleByUserId = (id, roles) => {
+  return request({
+    url: `/user-manage/update-role/${id}`,
+    method: 'POST',
+    data: {
+      roles
+    }
+  })
+}
