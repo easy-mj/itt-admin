@@ -39,7 +39,7 @@ import Author from './components/Author.vue'
 const activeTab = ref('feature')
 
 // 获取用户特性
-const featureData = ref(null)
+const featureData = ref([])
 const fetchFeature = async () => {
   const res = await getFeature()
   featureData.value = res
