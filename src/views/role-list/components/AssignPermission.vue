@@ -10,6 +10,7 @@
       :props="defaultProps"
       node-key="id"
       show-checkbox
+      check-strictly
       default-expand-all
     ></el-tree>
     <template #footer>
