@@ -13,7 +13,12 @@
             />
           </div>
           <div>
-            <el-button size="small" plain @click="handleImportExcelClick">
+            <el-button
+              size="small"
+              plain
+              v-permission="['importUser']"
+              @click="handleImportExcelClick"
+            >
               <el-icon><UploadFilled /></el-icon> 导入Excel
             </el-button>
             <el-button size="small" plain @click="handleExportExcelClick">
@@ -23,7 +28,13 @@
         </div>
       </template>
       <!-- 表格 -->
-      <el-table :data="tableData" size="small" style="width: 100%">
+      <el-table
+        :data="tableData"
+        size="small"
+        style="width: 100%"
+        v-loading="tableLoading"
+        element-loading-text="Loading..."
+      >
         <!-- 索引 -->
         <el-table-column type="index" label="#"></el-table-column>
         <!-- 姓名 -->
@@ -70,12 +81,18 @@
               @click="handleShowClick(row)"
               >{{ $t('msg.excel.show') }}</el-button
             >
-            <el-button type="info" size="small">{{
-              $t('msg.excel.showRole')
-            }}</el-button>
+            <el-button
+              type="info"
+              size="small"
+              v-permission="['destributeRole']"
+              @click="handleAssignRoles(row)"
+            >
+              {{ $t('msg.excel.showRole') }}
+            </el-button>
             <el-button
               type="danger"
               size="small"
+              v-permission="['removeUser']"
               @click="handleRemoveClick(row)"
               >{{ $t('msg.excel.remove') }}</el-button
             >
@@ -99,17 +116,24 @@
     </el-card>
     <!-- 导出Excel -->
     <export-excel v-model="exportExcelVisible"></export-excel>
+    <!-- 分配角色 -->
+    <assign-roles-dialog
+      v-model="assignRolesVisible"
+      :userId="selectUserId"
+      @updateRoleSuccess="fetchListData"
+    ></assign-roles-dialog>
   </div>
 </template>
 
 <script setup>
-import { ref, onActivated } from 'vue'
+import { ref, watch, onActivated } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Refresh } from '@element-plus/icons-vue'
 import { deleteUserById, getUserManageList } from '@/api/user-manage'
 import ExportExcel from '@/components/Export2Excel'
+import AssignRolesDialog from './components/AssignRoles'
 
 const i18n = useI18n()
 
@@ -172,7 +196,6 @@ const handleRemoveClick = (row) => {
     }
   )
     .then(async () => {
-      console.log(row)
       await deleteUserById(row._id)
       ElMessage.success(i18n.t('msg.excel.removeSuccess'))
       fetchListData()
@@ -190,6 +213,19 @@ const handleExportExcelClick = () => {
 const handleShowClick = (row) => {
   router.push({ name: 'userInfo', params: { id: row._id } })
 }
+
+// 分配角色
+const assignRolesVisible = ref(false)
+const selectUserId = ref('')
+const handleAssignRoles = (row) => {
+  assignRolesVisible.value = true
+  selectUserId.value = row._id
+}
+
+// 关闭弹窗后清除选中的用户，保证每次打开dialog都能够重新获取数据
+watch(assignRolesVisible, (val) => {
+  if (!val) selectUserId.value = ''
+})
 </script>
 
 <style lang="scss" scoped>

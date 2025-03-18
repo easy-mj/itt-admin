@@ -20,7 +20,8 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'space-before-function-paren': 'off',
-    'vue/multi-word-component-names': 'off'
+    'vue/multi-word-component-names': 'off',
+    'vue/max-attributes-per-line': 'off'
   },
   /**
    * ESLint 配置文件中添加对 Vue 编译器宏的全局变量声明，让 ESLint 知道这些宏是合法的，

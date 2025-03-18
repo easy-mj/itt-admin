@@ -2,6 +2,7 @@ import { createStore } from 'vuex'
 import user from './modules/user'
 import app from './modules/app'
 import theme from './modules/theme'
+import permission from './modules/permission'
 import getters from './getters'
 
 export default createStore({
@@ -9,6 +10,7 @@ export default createStore({
   modules: {
     app, // 系统模块
     user, // 用户模块
-    theme // 主题模块
+    theme, // 主题模块
+    permission // 权限模块
   }
 })

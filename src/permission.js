@@ -15,7 +15,18 @@ router.beforeEach(async (to, from, next) => {
     } else {
       // 判断用户信息是否存在，不存在则获取用户信息
       if (!store.getters.hasUserInfo) {
-        await store.dispatch('user/getUserInfo')
+        const { permission } = await store.dispatch('user/getUserInfo')
+        // 处理用户权限，筛选出需要添加的路由
+        const filterRoutes = await store.dispatch(
+          'permission/filterRoutes',
+          permission.menus
+        )
+        // 循环添加对应的动态路由
+        filterRoutes.forEach((item) => {
+          router.addRoute(item)
+        })
+        // 添加完动态路由之后，需要进行主动跳转，此时添加的动态路由才会生效
+        return next(to.path)
       }
       next()
     }
