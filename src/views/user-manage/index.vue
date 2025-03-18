@@ -13,7 +13,12 @@
             />
           </div>
           <div>
-            <el-button size="small" plain @click="handleImportExcelClick">
+            <el-button
+              size="small"
+              plain
+              v-permission="['importUser']"
+              @click="handleImportExcelClick"
+            >
               <el-icon><UploadFilled /></el-icon> 导入Excel
             </el-button>
             <el-button size="small" plain @click="handleExportExcelClick">
@@ -76,12 +81,18 @@
               @click="handleShowClick(row)"
               >{{ $t('msg.excel.show') }}</el-button
             >
-            <el-button type="info" size="small" @click="handleAssignRoles(row)">
+            <el-button
+              type="info"
+              size="small"
+              v-permission="['destributeRole']"
+              @click="handleAssignRoles(row)"
+            >
               {{ $t('msg.excel.showRole') }}
             </el-button>
             <el-button
               type="danger"
               size="small"
+              v-permission="['removeUser']"
               @click="handleRemoveClick(row)"
               >{{ $t('msg.excel.remove') }}</el-button
             >
