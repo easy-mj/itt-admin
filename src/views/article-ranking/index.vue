@@ -12,6 +12,29 @@
               @click="handleRefreshClick"
             />
           </div>
+          <div class="tools-wrapper">
+            <el-dropdown
+              size="small"
+              trigger="click"
+              class="dropdown"
+              :hide-on-click="false"
+              placement="bottom-start"
+            >
+              <span class="dropdown-setting">
+                <el-icon class="el-icon--right"><setting /></el-icon>列
+              </span>
+              <template #dropdown>
+                <el-checkbox-group
+                  class="dynamic-content"
+                  v-model="selectDynamicValue"
+                >
+                  <div v-for="item in dynamicData" :key="item.prop">
+                    <el-checkbox :label="item.label" :value="item.prop" />
+                  </div>
+                </el-checkbox-group>
+              </template>
+            </el-dropdown>
+          </div>
         </div>
       </template>
       <!-- 表格 -->
@@ -23,30 +46,17 @@
         element-loading-text="Loading..."
       >
         <el-table-column
-          :label="$t('msg.article.ranking')"
-          prop="ranking"
-          width="100"
-        ></el-table-column>
-        <el-table-column
-          :label="$t('msg.article.title')"
-          prop="title"
-        ></el-table-column>
-        <el-table-column
-          :label="$t('msg.article.author')"
-          prop="author"
-          width="100"
-        ></el-table-column>
-        <el-table-column
-          :label="$t('msg.article.publicDate')"
-          prop="publicDate"
-          width="160"
-        ></el-table-column>
-        <el-table-column
-          :label="$t('msg.article.desc')"
-          prop="desc"
-        ></el-table-column>
-        <el-table-column :label="$t('msg.role.action')" width="160">
-          <template #default="{ row }">
+          v-for="item in tableColumns"
+          :label="item.label"
+          :prop="item.prop"
+          :key="item.prop"
+        >
+          <!-- 时间列 -->
+          <template v-if="item.prop === 'publicDate'" #default="{ row }">
+            {{ $filters.relativeTime(row.publicDate) }}
+          </template>
+          <!-- 操作列 -->
+          <template v-else-if="item.prop === 'action'" #default="{ row }">
             <el-button
               type="primary"
               size="small"
@@ -87,6 +97,7 @@ import { ref, onActivated } from 'vue'
 import { Refresh } from '@element-plus/icons-vue'
 import { watchSwitchLanguage } from '@/utils/i18n'
 import { getArticleList } from '@/api/article'
+import { dynamicData, selectDynamicValue, tableColumns } from './dynamic'
 
 // 定义数据相关变量
 const tableData = ref([])
@@ -151,5 +162,25 @@ const handleDeleteClick = () => {}
   display: flex;
   justify-content: end;
   margin-top: 12px;
+}
+
+.tools-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown {
+  padding: 6px 9px 6px 3px;
+  background-color: #e2e2e2;
+
+  .dropdown-setting {
+    display: flex;
+    font-size: 14px;
+    cursor: pointer;
+  }
+}
+
+.dynamic-content {
+  padding: 10px 16px;
 }
 </style>
