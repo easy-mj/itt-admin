@@ -84,7 +84,7 @@
             <el-button
               type="info"
               size="small"
-              v-permission="['destributeRole']"
+              v-permission="['distributeRole']"
               @click="handleAssignRoles(row)"
             >
               {{ $t('msg.excel.showRole') }}

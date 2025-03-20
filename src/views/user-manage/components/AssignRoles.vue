@@ -83,7 +83,7 @@ const emits = defineEmits(['update:modelValue', 'updateRoleSuccess'])
 
 // 重置数据
 const resetData = () => {
-  userRoles.value = ''
+  userRoles.value = []
 }
 
 const closeDialog = () => {

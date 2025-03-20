@@ -62,12 +62,15 @@ export default {
     /**
      * 退出登录动作
      */
-    logout(context) {
-      resetRouters()
-      context.commit('setToken', '')
-      context.commit('setUserInfo', {})
-      removeAllItem()
+    async logout(context) {
       router.push('/login')
+      removeAllItem()
+      resetRouters()
+
+      setTimeout(() => {
+        context.commit('setToken', '')
+        context.commit('setUserInfo', {})
+      }, 2000)
     }
   }
 }
