@@ -17,7 +17,6 @@ export const privateRoutes = [
   article,
   articleCreate
 ]
-console.log(privateRoutes)
 
 /**
  * 公开路由表

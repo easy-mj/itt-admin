@@ -36,7 +36,6 @@ const showSetThemeDialog = ref(false)
 const handleSetTheme = (command) => {
   if (command === 'color') {
     // 切换主题颜色
-    console.log('切换主题颜色')
     showSetThemeDialog.value = true
   }
 }
