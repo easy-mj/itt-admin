@@ -39,6 +39,7 @@
       </template>
       <!-- 表格 -->
       <el-table
+        ref="tableRef"
         :data="tableData"
         border
         style="width: 100%"
@@ -93,11 +94,12 @@
 </template>
 
 <script setup>
-import { ref, onActivated } from 'vue'
+import { ref, onActivated, onMounted } from 'vue'
 import { Refresh } from '@element-plus/icons-vue'
 import { watchSwitchLanguage } from '@/utils/i18n'
 import { getArticleList } from '@/api/article'
 import { dynamicData, selectDynamicValue, tableColumns } from './dynamic'
+import { tableRef, initSortable } from './sortable'
 
 // 定义数据相关变量
 const tableData = ref([])
@@ -110,10 +112,13 @@ const tableLoading = ref(false)
 const fetchListData = async () => {
   try {
     tableLoading.value = true
+    tableData.value = []
+
     const result = await getArticleList({
       page: page.value,
       size: size.value
     })
+
     tableData.value = result.list
     total.value = result.total
   } catch (error) {
@@ -139,6 +144,11 @@ const handleCurrentChange = (currentPage) => {
   page.value = currentPage
   fetchListData()
 }
+
+// 初始化 sortable
+onMounted(() => {
+  initSortable(tableData, fetchListData)
+})
 
 // 点击查看
 const handleShowClick = () => {}
@@ -182,5 +192,13 @@ const handleDeleteClick = () => {}
 
 .dynamic-content {
   padding: 10px 16px;
+}
+
+// 拖拽目标位置的样式
+:deep(.sortable-ghost) {
+  opacity: 0.6;
+  color: #fff;
+  background-color: #85aade;
+  cursor: pointer;
 }
 </style>
