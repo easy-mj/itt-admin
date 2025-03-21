@@ -95,6 +95,7 @@
 
 <script setup>
 import { ref, onActivated, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Refresh } from '@element-plus/icons-vue'
@@ -104,6 +105,7 @@ import { dynamicData, selectDynamicValue, tableColumns } from './dynamic'
 import { tableRef, initSortable } from './sortable'
 
 const i18n = useI18n()
+const router = useRouter()
 
 // 定义数据相关变量
 const tableData = ref([])
@@ -155,7 +157,9 @@ onMounted(() => {
 })
 
 // 点击查看
-const handleShowClick = () => {}
+const handleShowClick = (row) => {
+  router.push({ name: 'articleDetail', params: { id: row._id } })
+}
 
 // 点击删除
 const handleDeleteClick = (row) => {
