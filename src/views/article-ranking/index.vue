@@ -95,11 +95,15 @@
 
 <script setup>
 import { ref, onActivated, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import { Refresh } from '@element-plus/icons-vue'
 import { watchSwitchLanguage } from '@/utils/i18n'
-import { getArticleList } from '@/api/article'
+import { deleteArticle, getArticleList } from '@/api/article'
 import { dynamicData, selectDynamicValue, tableColumns } from './dynamic'
 import { tableRef, initSortable } from './sortable'
+
+const i18n = useI18n()
 
 // 定义数据相关变量
 const tableData = ref([])
@@ -154,7 +158,23 @@ onMounted(() => {
 const handleShowClick = () => {}
 
 // 点击删除
-const handleDeleteClick = () => {}
+const handleDeleteClick = (row) => {
+  ElMessageBox.confirm(
+    i18n.t('msg.article.dialogTitle1') +
+      row.title +
+      i18n.t('msg.article.dialogTitle2'),
+    {
+      type: 'warning'
+    }
+  )
+    .then(async () => {
+      await deleteArticle(row._id)
+      ElMessage.success(i18n.t('msg.article.removeSuccess'))
+      // 重新获取数据
+      fetchListData()
+    })
+    .catch(() => {})
+}
 </script>
 
 <style lang="scss" scoped>
