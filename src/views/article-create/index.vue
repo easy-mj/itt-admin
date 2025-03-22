@@ -11,10 +11,10 @@
       <!-- 标签页 -->
       <el-tabs v-model="activeName">
         <el-tab-pane :label="$t('msg.article.markdown')" name="markdown">
-          <markdown :title="title" @onSuccess="handleSucess" />
+          <markdown :title="title" :detail="detail" @onSuccess="handleSucess" />
         </el-tab-pane>
         <el-tab-pane :label="$t('msg.article.richText')" name="editor">
-          <editor />
+          <editor :title="title" :detail="detail" @onSuccess="handleSucess" />
         </el-tab-pane>
       </el-tabs>
     </el-card>
@@ -23,6 +23,8 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRoute } from 'vue-router'
+import { getArticleDetail } from '@/api/article'
 import Editor from './components/Editor'
 import Markdown from './components/Markdown'
 
@@ -32,6 +34,20 @@ const activeName = ref('markdown')
 // 成功回调
 const handleSucess = () => {
   title.value = ''
+  detail.value = {}
+}
+
+// 编辑处理
+const route = useRoute()
+const articleId = route.params.id
+const detail = ref({})
+const fetchArticleDetail = async () => {
+  detail.value = await getArticleDetail(articleId)
+  // 标题赋值
+  title.value = detail.value.title
+}
+if (articleId) {
+  fetchArticleDetail()
 }
 </script>
 

@@ -16,18 +16,21 @@
 </template>
 
 <script setup>
-import { computed, onMounted } from 'vue'
+import { computed, watch, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import { watchSwitchLanguage } from '@/utils/i18n'
 import Editor from '@toast-ui/editor'
 import '@toast-ui/editor/dist/toastui-editor.css'
 import '@toast-ui/editor/dist/i18n/zh-cn'
-import { commitArticle } from './commit'
+import { commitArticle, editArticle } from './commit'
 
 const props = defineProps({
   title: {
     type: String,
     required: true
+  },
+  detail: {
+    type: Object
   }
 })
 const emits = defineEmits(['onSuccess'])
@@ -59,6 +62,21 @@ onMounted(() => {
   initEditor()
 })
 
+// 数据回填
+watch(
+  () => props.detail,
+  (val) => {
+    if (val && val.content) {
+      editor && editor.setHTML(val.content)
+    } else {
+      editor && editor.setHTML('')
+    }
+  },
+  {
+    immediate: true
+  }
+)
+
 // 切换语言
 watchSwitchLanguage(() => {
   if (!el) return
@@ -72,10 +90,18 @@ watchSwitchLanguage(() => {
 // 点击提交
 const handleSubmitClick = async () => {
   try {
-    await commitArticle({
-      title: props.title,
-      content: editor.getHTML()
-    })
+    if (props.detail && props.detail._id) {
+      await editArticle({
+        id: props.detail._id,
+        title: props.title,
+        content: editor.getHTML()
+      })
+    } else {
+      await commitArticle({
+        title: props.title,
+        content: editor.getHTML()
+      })
+    }
     editor.reset()
     emits('onSuccess')
   } catch (error) {}
