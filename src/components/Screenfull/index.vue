@@ -1,6 +1,7 @@
 <template>
   <div @click="handleToggleClick">
     <svg-icon
+      id="guide-full"
       :icon="isFullscreen ? 'exit-fullscreen' : 'fullscreen'"
     ></svg-icon>
   </div>
