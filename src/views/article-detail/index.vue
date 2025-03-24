@@ -11,7 +11,7 @@
         {{ $t('msg.article.publicDate') }}:
         {{ $filters.relativeTime(articleDetail.publicDate) }}
       </span>
-      <el-button type="text" class="edit" @click="handleEditClick">
+      <el-button class="edit" text @click="handleEditClick">
         {{ $t('msg.article.edit') }}
       </el-button>
     </div>
@@ -23,7 +23,7 @@
 <script setup>
 import { ref } from 'vue'
 import { getArticleDetail } from '@/api/article'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 // 获取数据
 const route = useRoute()
@@ -35,7 +35,10 @@ const fetchArticleDetail = async (articleId) => {
 fetchArticleDetail(articleId)
 
 // 编辑
-const handleEditClick = () => {}
+const router = useRouter()
+const handleEditClick = () => {
+  router.push(`/article/edit/${articleId}`)
+}
 </script>
 
 <style lang="scss" scoped>
